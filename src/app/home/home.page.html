@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-title> Code test - Sanitas </ion-title>
+	</ion-toolbar>
+	<ion-toolbar>
+		<ion-searchbar
+			[debounce]="400"
+			(ionChange)="search($event)"
+			animated="true"
+			mode="ios"
+			show-clear-button="always"
+			placeholder="Busca por ID o texto"
+		></ion-searchbar>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" [scrollY]="false">
+	<cdk-virtual-scroll-viewport
+		class="ion-content-scroll-host"
+		itemSize="176"
+		minBufferPx="1760"
+		maxBufferPx="3520"
+	>
+		<div id="container">
+			<ion-card *ngIf="dataProxy.length === 0">
+				<ion-card-header>
+					<ion-card-title>
+						<ion-icon
+							color="danger"
+							name="close-circle-outline"
+						></ion-icon>
+						No se han encontrado elementos
+					</ion-card-title>
+				</ion-card-header>
+				<ion-card-content *ngIf="filterQuery !== ''">
+					Prueba con otra búsqueda o elimínala para mostrar todos los
+					datos
+				</ion-card-content>
+			</ion-card>
+			<ion-list inset="true">
+				<ion-item
+					lines="none"
+					mode="md"
+					fill="solid"
+					shape="round"
+					*cdkVirtualFor="let item of dataProxy"
+				>
+					<div class="item-imagen" slot="start">
+						<ion-img
+							alt="Imagen del item {{ item.id }}"
+							[src]="item.photo"
+							(ionError)="item.photo='assets/placeholder500.jpg';"
+						></ion-img>
+					</div>
+					<ion-label class="ion-text-wrap">
+						{{ item.text | titlecase }}
+					</ion-label>
+				</ion-item>
+			</ion-list>
+		</div>
+	</cdk-virtual-scroll-viewport>
+</ion-content>

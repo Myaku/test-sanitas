@@ -1,0 +1,67 @@
+cdk-virtual-scroll-viewport {
+	height: 100%;
+	width: 100%;
+}
+
+#container {
+	--back-color: #fafafa;
+	--item-height: 160px;
+	--item-gap-between: 16px;
+	/* Este margin no es rem para poder usar el fixed size para el virtual scrolling */
+
+	text-align: center;
+
+	a {
+		text-decoration: none;
+	}
+
+	ion-card {
+		ion-icon {
+			vertical-align: sub;
+			font-size: 24px;
+		}
+	}
+
+	ion-list {
+		max-width: 650px;
+		margin-left: auto;
+		margin-right: auto;
+
+		ion-item {
+			height: var(--item-height);
+
+			ion-label {
+				--margin-vert: 1rem;
+				height: calc(
+					var(--item-height) - var(--margin-vert) - var(--margin-vert) -
+						1px
+				);
+				margin-top: var(--margin-vert);
+				margin-bottom: var(--margin-vert);
+			}
+
+			margin-bottom: var(--item-gap-between);
+			margin-right: 0.5rem;
+			margin-left: 0.5rem;
+
+			/* Estas dos son por UX, facilitamos el seguimiento de los elementos en la lista y en escritorio el ratón al hacer hover, para que no se pierda con facilidad */
+			&:nth-child(odd) {
+				--back-color: #f0f0f0;
+			}
+			&:hover {
+				box-shadow: 0px 3px 8px -3px rgb(0 0 0 / 38%);
+				border-radius: var(--border-radius);
+			}
+
+			--border-radius: 0.75rem;
+			--background: var(--back-color);
+			--background-focused: var(--back-color);
+			--background-hover: var(--back-color);
+		}
+	}
+
+	.item-imagen {
+		max-width: 130px;
+		max-height: 130px;
+	}
+}
